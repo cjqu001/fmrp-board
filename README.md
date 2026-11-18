@@ -39,7 +39,7 @@ Copy changed files over, then `sudo /usr/local/bin/docker-compose up -d --build`
 
 ## Change a password
 
-Edit `.env`, then `sudo /usr/local/bin/docker-compose up -d` (the container restarts and updates the stored hash).
+On the NAS run `sh /volume1/docker/fmrp-board/scripts/set_password.sh admin` (or `editor`). It asks for the new password hidden, saves it to `.env`, and restarts the board.
 
 ## Backups
 

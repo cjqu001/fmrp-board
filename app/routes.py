@@ -60,7 +60,7 @@ def inject_role():
 def login():
     error = None
     if request.method == "POST":
-        password = request.form.get("password", "")
+        password = request.form.get("password", "").strip()  # copy-paste often adds spaces
         name = " ".join(request.form.get("name", "").split())[:MAX_NAME]
         users = get_db().execute(
             "SELECT * FROM users WHERE active = 1 AND role IN ('admin', 'editor')"

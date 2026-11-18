@@ -122,6 +122,11 @@ def test_viewer_cannot_open_edit_pages(client):
         assert resp.status_code == 302 and "/login" in resp.headers["Location"], url
 
 
+def test_password_ignores_surrounding_spaces(client):
+    resp = client.post("/login", data={"password": f"  {ADMIN_PW} \n", "name": ""})
+    assert resp.status_code == 302
+
+
 def test_wrong_password_and_missing_name(client):
     assert "Wrong password" in client.post("/login", data={"password": "nope", "name": "a"}).get_data(as_text=True)
     assert "Type your name" in client.post("/login", data={"password": EDITOR_PW}).get_data(as_text=True)
