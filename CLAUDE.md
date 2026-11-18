@@ -22,3 +22,22 @@ Flask + SQLite + Jinja board for the FMRP Highest/Lowest whiteboard. Deployed vi
 - Tests: `.venv\Scripts\python -m pytest -q tests`
 
 See `project_log.md` for decisions, `MEMORY.md` for gotchas, `ERRORS.md` for errors hit.
+
+## NAS commands
+- Claude can't run `sudo` on the NAS (it asks for a password). The user runs sudo commands in their own PowerShell over SSH, with full paths: `sudo /usr/local/bin/docker-compose ...`, `sudo /usr/local/bin/docker ...`.
+- Never type, ask for, or store passwords for the user.
+
+## Status (2026-11-18)
+Done:
+- MVP built: public read-only board; editor and admin logins; add, edit and soft-delete records; residents (add, rename, graduate); change log with filters and CSV export; per-record history; admin Undo. 17 pytest tests pass.
+- Committed on `main` and pushed to the private repo https://github.com/cjqu001/fmrp-board.
+- Deployed on the NAS at `/volume1/docker/fmrp-board/`, port 8095, and seeded with 55 records. The board answers HTTP 200 at `http://home-nas:8095`.
+- The NAS `.env` has random passwords. The admin login failed, most likely because the 16-character password is hard to type. Fixes: added `scripts/set_password.sh` (asks for a new password hidden, saves it to `.env`, restarts only this board's container), and the login now ignores spaces around the password. Both are copied to the NAS.
+
+## Next steps (ask the user which to do first)
+1. Admin login: the user runs `ssh -t cq_admin@192.168.0.65 "sh /volume1/docker/fmrp-board/scripts/set_password.sh admin"` in PowerShell, then confirms the admin login works. Do the same with `editor` if needed.
+2. The user should change their NAS `cq_admin` password (it was posted in an old chat). Never ask for it.
+3. Fonts: download `AtkinsonHyperlegible-Regular.woff2` and `-Bold.woff2` (SIL OFL) into `app/static/fonts/`. Needs the user's OK to download.
+4. Nightly backup: create the DSM Task Scheduler job (user `root`, daily 03:00, `sh /volume1/docker/fmrp-board/scripts/backup_db.sh`). Needs the user's OK; the user creates it in DSM.
+5. Optional: bind port 8095 to the NAS's Tailscale IP only (now open on the home LAN too). Needs the user's OK.
+6. The user reviews the flagged items in `project_log.md`: High/Low direction guesses, possible duplicate residents (Bidaisee/Bidaisse, Lopes/Lopez), and the pH pairing.
