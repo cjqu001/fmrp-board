@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="table-wrap">
+<table class="board">
+  <thead><tr><th>Lab</th><th>Value</th><th>Resident(s)</th><th class="updated">Last updated</th></tr></thead>
+  <tbody>
+  {% for r in records %}
+    <tr>
+      <td class="lab"><a href="{{ url_for('main.record_view', record_id=r.id) }}">{{ r.label }}</a></td>
+      <td class="value">{{ r.value_text }}</td>
+      <td>
+        {% for name in r.residents %}{% if not loop.first %} / {% endif %}<span class="{% if '?' in name %}unsure{% endif %}" {% if '?' in name %}title="Handwriting uncertain: please correct on the Residents page"{% endif %}>{{ name }}</span>{% endfor %}
+        {% if r.note %}<div class="note">{{ r.note }}</div>{% endif %}
+      </td>
+      <td class="updated">{{ r.updated_at | et }}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="4">No records yet.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+<p class="hint">Names highlighted in yellow were hard to read on the whiteboard. Tap a lab to see its history.</p>
+{% endblock %}

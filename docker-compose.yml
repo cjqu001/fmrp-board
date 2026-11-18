@@ -1,0 +1,15 @@
+services:
+  fmrp-board:
+    build: .
+    container_name: fmrp-board
+    env_file: .env
+    environment:
+      DATABASE: /data/board.db
+    # cq_admin on home-nas is uid 1027, gid 100 (users); data/ and backups/ must be writable by it
+    user: "1027:100"
+    volumes:
+      - ./data:/data
+      - ./backups:/backups
+    ports:
+      - "8095:8000"
+    restart: unless-stopped

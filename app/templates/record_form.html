@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Add record · FMRP{% endblock %}
+{% block content %}
+<h1>Add a record</h1>
+{% for e in errors %}<p class="flash error">{{ e }}</p>{% endfor %}
+<form method="post" class="stack">
+  {% set current = form if form else none %}
+  {% include "_record_fields.html" %}
+  <button type="submit" class="primary">Save record</button>
+</form>
+{% endblock %}

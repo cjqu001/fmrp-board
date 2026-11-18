@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ record.lab }} · FMRP{% endblock %}
+{% block content %}
+<h1>{{ record.lab }} <small>({{ record.direction }})</small></h1>
+{% if record.is_deleted %}<p class="flash error">This record was deleted. An admin can restore it from the change log.</p>{% endif %}
+<p class="big"><span class="value">{{ record.value_text }}</span> &middot;
+  {% for name in record.residents %}{% if not loop.first %} / {% endif %}<span class="{% if '?' in name %}unsure{% endif %}">{{ name }}</span>{% endfor %}</p>
+{% if record.note %}<p class="note">{{ record.note }}</p>{% endif %}
+
+<h2>History</h2>
+<ol class="history">
+  {% for h in history %}
+    <li><b>{{ h.ts_et }}</b> · {{ h.actor_name }} · {{ h.action }}
+      {% if h.after %}→ <span class="value">{{ h.after.value_text }}</span> {{ h.after.residents | join(' / ') }}{% endif %}
+      {% if h.after and h.after.is_deleted %}<em>(deleted)</em>{% endif %}
+    </li>
+  {% endfor %}
+</ol>
+
+{% if can_edit and not record.is_deleted %}
+<details class="edit">
+  <summary>Edit this record</summary>
+  <form method="post" action="{{ url_for('main.record_edit', record_id=record_id) }}" class="stack">
+    {% set current = record %}
+    {% include "_record_fields.html" %}
+    <button type="submit" class="primary">Save changes</button>
+  </form>
+  <form method="post" action="{{ url_for('main.record_delete', record_id=record_id) }}" class="stack"
+        onsubmit="return this.querySelector('[name=sure]').checked">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label class="pill"><input type="checkbox" name="sure"> Yes, remove this record from the board</label>
+    <button type="submit" class="danger">Delete record</button>
+  </form>
+</details>
+{% endif %}
+{% endblock %}

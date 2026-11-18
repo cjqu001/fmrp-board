@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Residents · FMRP{% endblock %}
+{% block content %}
+<h1>Residents</h1>
+<form method="post" class="row">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <input name="name" maxlength="60" placeholder="New resident name" required>
+  <button type="submit" class="primary">Add</button>
+</form>
+<p class="hint">Rename fixes a name everywhere, including old records. "Graduated" hides a name from the add form but keeps it on old records. Names with "?" were unclear on the whiteboard.</p>
+<div class="table-wrap">
+<table class="board">
+  <thead><tr><th>Name</th><th>Records</th><th>Status</th></tr></thead>
+  <tbody>
+  {% for s in residents %}
+    <tr class="{% if not s.active %}inactive{% endif %}">
+      <td>
+        <form method="post" action="{{ url_for('main.resident_rename', resident_id=s.id) }}" class="row">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input name="name" value="{{ s.name }}" maxlength="60" class="{% if '?' in s.name %}unsure{% endif %}" aria-label="Name">
+          <button type="submit">Rename</button>
+        </form>
+      </td>
+      <td>{{ s.n_records }}</td>
+      <td>
+        <form method="post" action="{{ url_for('main.resident_toggle', resident_id=s.id) }}" class="inline">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit">{% if s.active %}Mark graduated{% else %}Reactivate{% endif %}</button>
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

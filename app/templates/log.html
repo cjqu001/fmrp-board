@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Change log · FMRP{% endblock %}
+{% block content %}
+<h1>Change log</h1>
+<form method="get" class="row filters">
+  <select name="lab"><option value="">All labs</option>{% for l in labs %}<option {% if args.lab == l %}selected{% endif %}>{{ l }}</option>{% endfor %}</select>
+  <select name="resident"><option value="">All residents</option>{% for p in people %}<option {% if args.resident == p %}selected{% endif %}>{{ p }}</option>{% endfor %}</select>
+  <select name="user"><option value="">All users</option>{% for u in users %}<option {% if args.user == u %}selected{% endif %}>{{ u }}</option>{% endfor %}</select>
+  <button type="submit">Filter</button>
+  <a href="{{ url_for('main.change_log_csv', **args) }}">Export CSV</a>
+</form>
+<p class="hint">{{ total }} entries{% if total > 500 %} (showing newest 500; CSV has all){% endif %}. Times are America/New_York. Editor names are typed at login, not verified.</p>
+<div class="table-wrap">
+<table class="board log">
+  <thead><tr><th>When</th><th>User</th><th>Action</th><th>Item</th><th>Before → After</th>{% if is_admin %}<th></th>{% endif %}</tr></thead>
+  <tbody>
+  {% for e in entries %}
+    <tr>
+      <td>{{ e.ts_et }}</td>
+      <td>{{ e.actor_name }}</td>
+      <td>{{ e.action }}</td>
+      <td>{{ e.entity }}{% if e.entity == 'record' %} <a href="{{ url_for('main.record_view', record_id=e.entity_id) }}">{{ e.what }}</a>{% else %} {{ e.what }}{% endif %}</td>
+      <td>{% for label, b, a in e.changes %}<div><b>{{ label }}:</b> {% if b %}{{ b }} → {% endif %}{{ a }}</div>{% endfor %}</td>
+      {% if is_admin %}<td>
+        {% if e.entity in ('record', 'resident') %}
+        <form method="post" action="{{ url_for('main.restore', entry_id=e.id) }}" class="inline">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" title="Put this item back to how it was before this change">Undo</button>
+        </form>
+        {% endif %}
+      </td>{% endif %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

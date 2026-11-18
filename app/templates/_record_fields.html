@@ -1,0 +1,40 @@
+{# shared by the add form and the edit form; expects labs, residents, current (dict or none) #}
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<label>Lab
+  <select name="lab" id="lab-select" required>
+    <option value="">Choose…</option>
+    {% for l in labs %}<option value="{{ l.id }}" {% if current and current.lab_id == l.id %}selected{% endif %}>{{ l.name }}</option>{% endfor %}
+    <option value="__other__" {% if current and current.lab_id is none and current.new_lab %}selected{% endif %}>Other (type new)</option>
+  </select>
+</label>
+<label id="new-lab-wrap">New lab name
+  <input name="new_lab" maxlength="60" value="{{ current.new_lab if current and current.new_lab else '' }}">
+</label>
+<fieldset class="choices">
+  <legend>Direction</legend>
+  {% for d in ['High', 'Low', 'Count'] %}
+    <label class="pill"><input type="radio" name="direction" value="{{ d }}" required {% if current and current.direction == d %}checked{% endif %}> {{ d }}</label>
+  {% endfor %}
+</fieldset>
+<label>Value <small>(free text: &gt;, &lt;, +, %, units are fine)</small>
+  <input name="value_text" maxlength="40" required value="{{ current.value_text if current else '' }}">
+</label>
+<fieldset class="choices residents">
+  <legend>Resident(s)</legend>
+  {% for s in residents %}
+    <label class="pill {% if '?' in s.name %}unsure{% endif %}"><input type="checkbox" name="resident_ids" value="{{ s.id }}" {% if current and s.id in current.resident_ids %}checked{% endif %}> {{ s.name }}</label>
+  {% endfor %}
+</fieldset>
+<label>Add new resident(s) <small>(comma-separated)</small>
+  <input name="new_residents" maxlength="200" placeholder="e.g. Smith, Nguyen">
+</label>
+<label>Note <small>(optional, no patient identifiers)</small>
+  <input name="note" maxlength="200" value="{{ current.note if current else '' }}">
+</label>
+<script>
+  (function () {
+    var sel = document.getElementById('lab-select'), wrap = document.getElementById('new-lab-wrap');
+    function sync() { wrap.hidden = sel.value !== '__other__'; }
+    sel.addEventListener('change', sync); sync();
+  })();
+</script>
