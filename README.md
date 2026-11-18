@@ -26,20 +26,20 @@ Tests: `.venv\Scripts\python -m pytest -q tests`
 3. SSH in as `cq_admin`, then:
    ```sh
    cd /volume1/docker/fmrp-board
-   sudo docker compose build
-   sudo docker compose run --rm fmrp-board python -m pytest -q tests
-   sudo docker compose up -d
-   sudo docker compose exec fmrp-board python scripts/seed_board.py
+   sudo /usr/local/bin/docker-compose build
+   sudo /usr/local/bin/docker-compose run --rm fmrp-board python -m pytest -q tests
+   sudo /usr/local/bin/docker-compose up -d
+   sudo /usr/local/bin/docker-compose exec fmrp-board python scripts/seed_board.py
    ```
 4. Open `http://home-nas:8095` from a device on the tailnet.
 
 ## Update
 
-Copy changed files over, then `sudo docker compose up -d --build`. Data in `data/` is kept.
+Copy changed files over, then `sudo /usr/local/bin/docker-compose up -d --build`. Data in `data/` is kept.
 
 ## Change a password
 
-Edit `.env`, then `sudo docker compose up -d` (the container restarts and updates the stored hash).
+Edit `.env`, then `sudo /usr/local/bin/docker-compose up -d` (the container restarts and updates the stored hash).
 
 ## Backups
 
@@ -52,10 +52,10 @@ user `root`, daily at 03:00, command `sh /volume1/docker/fmrp-board/scripts/back
 
 ```sh
 cd /volume1/docker/fmrp-board
-sudo docker compose stop
+sudo /usr/local/bin/docker-compose stop
 cp data/board.db data/board.db.before-restore
 cp backups/board-YYYY-MM-DD.db data/board.db
-sudo docker compose start
+sudo /usr/local/bin/docker-compose start
 ```
 
 To undo a single change instead, log in as admin, open **Change log**, and press **Undo** on that row.
