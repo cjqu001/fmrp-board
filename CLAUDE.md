@@ -36,8 +36,9 @@ Done:
 
 ## Next steps (ask the user which to do first)
 1. Admin login: the user runs `ssh -t cq_admin@192.168.0.65 "sh /volume1/docker/fmrp-board/scripts/set_password.sh admin"` in PowerShell, then confirms the admin login works. Do the same with `editor` if needed.
-2. The user should change their NAS `cq_admin` password (it was posted in an old chat). Never ask for it.
-3. Fonts: download `AtkinsonHyperlegible-Regular.woff2` and `-Bold.woff2` (SIL OFL) into `app/static/fonts/`. Needs the user's OK to download.
-4. Nightly backup: create the DSM Task Scheduler job (user `root`, daily 03:00, `sh /volume1/docker/fmrp-board/scripts/backup_db.sh`). Needs the user's OK; the user creates it in DSM.
-5. Optional: bind port 8095 to the NAS's Tailscale IP only (now open on the home LAN too). Needs the user's OK.
-6. The user reviews the flagged items in `project_log.md`: High/Low direction guesses, possible duplicate residents (Bidaisee/Bidaisse, Lopes/Lopez), and the pH pairing.
+2. Backup when data changes, not nightly (user's choice, 2026-11-18). No Synology scheduled task. Proposed simplest design, to confirm with the user before coding: after each successful change in `app/models.py`, the app writes an SQLite online backup to `backups/board-YYYY-MM-DD.db` (one file per day that had changes, overwritten during that day), keeping the last 30 files. `scripts/backup_db.sh` stays for manual backups. Update README's Backups section to match.
+3. Fonts (optional, looks only): the page is meant to use Atkinson Hyperlegible, a free easy-to-read font. Its two files (`AtkinsonHyperlegible-Regular.woff2`, `-Bold.woff2`, SIL OFL) are not in `app/static/fonts/` yet, so the board uses the device's default font. Needs the user's OK to download.
+4. Optional: bind port 8095 to the NAS's Tailscale IP only (now open on the home LAN too). Needs the user's OK.
+5. The user reviews the flagged items in `project_log.md`: High/Low direction guesses, possible duplicate residents (Bidaisee/Bidaisse, Lopes/Lopez), and the pH pairing.
+
+Done by the user: changed the NAS `cq_admin` password (2026-11-18).
