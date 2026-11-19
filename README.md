@@ -1,5 +1,8 @@
 # FMRP Highest / Lowest Record Board
 
+**Now a static page:** https://cjqu001.github.io/fmrp-board/ (GitHub Pages, from `docs/`).
+How to edit it: [docs/README.md](docs/README.md). The Flask app below is the older NAS version.
+
 Live version of the FMRP whiteboard. Public read-only board; editing needs a login.
 Every change is written to an append-only change log in the same database transaction.
 

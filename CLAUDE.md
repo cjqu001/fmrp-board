@@ -34,7 +34,13 @@ Done:
 - Deployed on the NAS at `/volume1/docker/fmrp-board/`, port 8095, and seeded with 55 records. The board answers HTTP 200 at `http://home-nas:8095`.
 - The NAS `.env` has random passwords. The admin login failed, most likely because the 16-character password is hard to type. Fixes: added `scripts/set_password.sh` (asks for a new password hidden, saves it to `.env`, restarts only this board's container), and the login now ignores spaces around the password. Both are copied to the NAS.
 
-## Next steps (ask the user which to do first)
+## Static board (2026-11-19, user's choice)
+- The board is now a static page in `docs/` on GitHub Pages (https://cjqu001.github.io/fmrp-board/); the repo is public. Anyone with the link views; only the user edits, on their own computer, and pushes `docs/board.csv`. Git history is the change log.
+- Edit tools and the whiteboard photo tab show only on file:// or localhost. `docs/photo-log/` is gitignored (never published).
+- The Flask app and NAS container are kept for now. Retiring them (stop container, remove code, update the invariants above) needs the user's OK.
+- Not yet tested by the user: "Open board folder" and adding photos (need a real folder pick in Chrome/Edge).
+
+## Next steps for the old Flask app (ask the user which to do first)
 1. Editor login (if needed): the user runs `ssh -t cq_admin@192.168.0.65 "sh /volume1/docker/fmrp-board/scripts/set_password.sh editor"` in PowerShell, then confirms it works.
 2. Backup when data changes, not nightly (user's choice, 2026-11-18). No Synology scheduled task. Proposed simplest design, to confirm with the user before coding: after each successful change in `app/models.py`, the app writes an SQLite online backup to `backups/board-YYYY-MM-DD.db` (one file per day that had changes, overwritten during that day), keeping the last 30 files. `scripts/backup_db.sh` stays for manual backups. Update README's Backups section to match.
 3. Fonts (optional, looks only): the page is meant to use Atkinson Hyperlegible, a free easy-to-read font. Its two files (`AtkinsonHyperlegible-Regular.woff2`, `-Bold.woff2`, SIL OFL) are not in `app/static/fonts/` yet, so the board uses the device's default font. Needs the user's OK to download.

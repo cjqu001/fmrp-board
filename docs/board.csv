@@ -1,0 +1,56 @@
+lab,direction,value,residents,note,updated
+HCO3,Low,2,Willis / Jackson,,2026-11-18
+A1c,High,>15.5,Dunn / Bidaisee,,2026-11-18
+Glucose,High,2281,Dawson,,2026-11-18
+Glucose,Low,<10,Taylor / Pander,,2026-11-18
+Hgb,Low,2.8,Carter / Alkalini?,,2026-11-18
+BNP,High,"7,818",Laroda / Peyton / Carter,,2026-11-18
+Troponin,High,"121,469",Bennett,,2026-11-18
+BMI,High,76,Macbeth,,2026-11-18
+BMI,Low,12.8,Scott / Por?,,2026-11-18
+Anion gap,High,37,Scott,,2026-11-18
+LDH,High,">3,600",Scott / Klade,,2026-11-18
+Wt loss per day (Lasix),High,20 lbs,Lopes / Belgrave,,2026-11-18
+Platelets,High,909,Martin / Osbon,,2026-11-18
+Platelets,Low,9,Willis / Bennett,,2026-11-18
+Temp,Low,80.2 °F,Martin / Osbon,,2026-11-18
+PSA,High,"1,700",Pander / Nowitzky?,,2026-11-18
+Lactate,High,24.1,Haner? / Charite,,2026-11-18
+Procalcitonin,High,482.5,Willis,,2026-11-18
+Admissions in a day,Count,7,Lopez / Cunningham,,2026-11-18
+TSH,High,239,Macbeth,,2026-11-18
+AST,High,">10,000",Hammer / Charite,,2026-11-18
+Lipase,High,">1,800",Hammer / Charite,,2026-11-18
+ALT,High,">5,000",Dunn / St. Juste,,2026-11-18
+K+,High,8.7,Willis / Belgrave,,2026-11-18
+K+,Low,1.5,Bennett / Alexis,,2026-11-18
+Vit B12,Low,<50,Bennett / Laroda,,2026-11-18
+Age,High,101,Martin / Taylor,,2026-11-18
+EF,Low,10%,Bridges / Dunn,,2026-11-18
+Na,Low,108,Kerr / Bidaisse,,2026-11-18
+Alcohol level,High,479,Macbeth / Lopes,,2026-11-18
+Paracentesis fluid,High,19 L,Reid / St. Juste,,2026-11-18
+Units of insulin,High,"1,235",Shahid / Osbon,,2026-11-18
+Most codes in 1 shift,Count,7,Kerr / Bidaisse?,,2026-11-18
+BUN,High,186,Talebi / Charite,,2026-11-18
+Creatinine,High,14.4,Dantas / Charite,,2026-11-18
+pH,Low,<7,Kerr / Dunn / Dantas / Bennett,Two teams: Kerr + Dunn / Dantas + Bennett,2026-11-18
+β-OH butyrate,High,7.44,Dunn,,2026-11-18
+Vit D,Low,<7,Dunn,,2026-11-18
+RDW,High,40.9,Martin,,2026-11-18
+Weight,High,535 lb,Talebi / Kerr,,2026-11-18
+PR interval,High,280 ms,Reid / Macbeth,,2026-11-18
+CK,High,"61,800+",Headley / Dawson,,2026-11-18
+T. bili,High,57.4,Osbon / Reid,,2026-11-18
+CRP,High,30.9,Brown / Dantas,,2026-11-18
+Iron sat,Low,2%,Laroda / Collins,,2026-11-18
+WBC,High,265,Scott / Bowens,,2026-11-18
+WBC,Low,0.2,Willis / Bennett,,2026-11-18
+Discharges in a day,Count,7,Cunningham,,2026-11-18
+Hrs to bounceback,Low,4,Cunningham,,2026-11-18
+Mg,Low,0.6,Bennett / Bowens,,2026-11-18
+Uric acid,High,19,Scott / Bowens,,2026-11-18
+pCO2,High,107.9,Kerr / Talebi,,2026-11-18
+CD4,Low,15,Knibbe? / Martin,,2026-11-18
+MCV,High,124,Willis,,2026-11-18
+Ferritin,High,">7,500",Shane? / Evan,,2026-11-18

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FMRP Highest / Lowest</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <span class="brand">FMRP Highest / Lowest</span>
+  <nav class="tabs edit-only">
+    <button type="button" data-tab="board" class="tab active">Board</button>
+    <button type="button" data-tab="photos" class="tab">Whiteboard photos</button>
+  </nav>
+</header>
+
+<main>
+  <section id="tab-board">
+    <div class="toolbar no-print">
+      <span class="edit-only">
+        <button type="button" id="open-folder" class="primary">Open board folder</button>
+        <button type="button" id="add-record" disabled>+ Add record</button>
+        <label class="filebtn">Import CSV<input type="file" id="import-csv" accept=".csv,text/csv" hidden></label>
+      </span>
+      <span class="exports">
+        Export:
+        <button type="button" id="export-csv">CSV</button>
+        <button type="button" id="export-jpg">JPG</button>
+        <button type="button" id="export-pdf" title="Opens the print dialog: choose Save as PDF">PDF</button>
+      </span>
+    </div>
+    <p id="status" class="status edit-only no-print" aria-live="polite"></p>
+
+    <div id="board-area">
+      <div class="table-wrap">
+        <table class="board">
+          <thead><tr><th>Lab</th><th>Value</th><th>Resident(s)</th><th class="updated">Updated</th><th class="edit-only no-print"></th></tr></thead>
+          <tbody id="rows"><tr><td colspan="5">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+    <p class="hint">Names highlighted in yellow were hard to read on the whiteboard.</p>
+  </section>
+
+  <section id="tab-photos" class="edit-only" hidden>
+    <h1>Whiteboard photos <small>only on this computer, never published</small></h1>
+    <form id="photo-form" class="row">
+      <label>Date <input type="date" id="photo-date" required></label>
+      <label>Photo or PDF <input type="file" id="photo-file" accept="image/*,.pdf" multiple required></label>
+      <button type="submit" class="primary">Add to log</button>
+    </form>
+    <p id="photo-status" class="status" aria-live="polite"></p>
+    <div id="photo-list" class="photos"></div>
+  </section>
+</main>
+
+<dialog id="editor">
+  <form method="dialog" id="edit-form" class="stack">
+    <h2 id="edit-title">Edit record</h2>
+    <label>Lab <input name="lab" list="lab-names" required></label>
+    <label>Direction
+      <select name="direction"><option>High</option><option>Low</option><option>Count</option></select>
+    </label>
+    <label>Value <input name="value" required></label>
+    <label>Resident(s) <small>separate with /</small> <input name="residents" list="resident-names"></label>
+    <label>Note <input name="note"></label>
+    <div class="row">
+      <button type="submit" value="save" class="primary">Save</button>
+      <button type="submit" value="cancel" formnovalidate>Cancel</button>
+      <button type="button" id="delete-record" class="danger">Delete</button>
+    </div>
+  </form>
+</dialog>
+<datalist id="lab-names"></datalist>
+<datalist id="resident-names"></datalist>
+
+<footer>No patient identifiers. Do not enter patient names, MRNs, DOBs, rooms or dates of service.</footer>
+<script src="board.js"></script>
+</body>
+</html>

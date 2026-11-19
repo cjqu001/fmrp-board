@@ -7,3 +7,6 @@ data/*
 !data/.gitkeep
 backups/*
 !backups/.gitkeep
+
+# Static board: whiteboard photo log stays on this computer only
+docs/photo-log/
