@@ -45,7 +45,7 @@ function parseCSV(text) {
 
 function toCSV(list) {
   const esc = (v) => (/[",\r\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v);
-  return [COLS.join(","), ...list.map((r) => COLS.map((c) => esc(r[c] || "")).join(","))].join("\r\n") + "\r\n";
+  return [COLS.join(","), ...list.map((r) => COLS.map((c) => esc(r[c] || "")).join(","))].join("\n") + "\n"; // LF, like the rest of the repo
 }
 
 // ---------- board ----------
