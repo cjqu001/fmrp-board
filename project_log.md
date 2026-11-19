@@ -42,3 +42,12 @@ Deploy target (later, after confirmation): `/volume1/docker/fmrp-board/` on `hom
 ### Next
 - Deploy to the NAS (needs Quinones' OK to copy files and run `docker compose up`; sudo on the NAS needs their password).
 - Create the Synology nightly backup task (needs OK).
+
+### Static board (2026-11-19)
+- Quinones chose a static page on GitHub Pages instead of the Flask app, to free the NAS. Anyone with the link views; only Quinones edits (on their own computer) and pushes.
+- Data is `docs/board.csv`; git history replaces the audit log, logins and Undo. Records can now be removed from the CSV (git keeps the old rows).
+- Exports: CSV, JPG (html2canvas from cdnjs), PDF (print dialog). Import CSV for editing.
+- Whiteboard photo log: separate tab, local only, `docs/photo-log/` is gitignored.
+- Residents' names public: OK per Quinones (already public via NPI and the FSU site).
+- Repo made public (history checked: no passwords or databases committed). Pages serves `main` / `docs`.
+- Flask app, Docker files, tests and NAS scripts removed from the repo; still in git history (commit `6c2c9f5` and earlier). The NAS container was stopped by Quinones; its folder stays on the NAS as an archive.

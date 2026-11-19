@@ -7,3 +7,5 @@
 - Shared editor login: `session["actor_name"]` is whatever the person typed; it is not proof of identity.
 - Passwords live only in `.env`; the app re-hashes on start if they changed.
 - Lab label gets "(high)/(low)" only when that lab has both directions on the board (e.g. Glucose, BMI, K+, Platelets, WBC).
+- 2026-11-19: the Flask app and NAS container were retired; the notes above about the NAS, logins and Docker apply only to the old version in git history.
+- The static page writes `board.csv` with LF line endings (`.gitattributes` keeps LF).
