@@ -132,6 +132,7 @@ async function openFolder() {
     return;
   }
   $("add-record").disabled = false;
+  $("folder-hint").hidden = true;
   $("open-folder").textContent = `Folder: ${folder.name}`;
   status(`Opened ${folder.name}/board.csv. Changes save to it automatically.`);
   render();
@@ -311,6 +312,19 @@ if (EDIT_MODE) {
   $("open-folder").onclick = openFolder;
   $("add-record").onclick = () => openEditor(records.length);
   $("photo-date").value = today();
+  // When opened by double-click, show this folder's Windows path so it can be pasted into the picker.
+  if (location.protocol === "file:") {
+    const dir = decodeURIComponent(location.pathname).replace(/\/[^/]*$/, "");
+    $("folder-path").value = dir.replace(/^\/([A-Za-z]:)/, "$1").replace(/\//g, "\\");
+    $("folder-path").size = $("folder-path").value.length + 2;
+    $("folder-hint").hidden = false;
+    $("copy-path").onclick = async () => {
+      $("folder-path").select();
+      try { await navigator.clipboard.writeText($("folder-path").value); } catch { document.execCommand("copy"); }
+      $("copy-path").textContent = "Copied";
+      setTimeout(() => ($("copy-path").textContent = "Copy"), 1500);
+    };
+  }
   document.querySelectorAll(".tab").forEach((t) => (t.onclick = () => {
     document.querySelectorAll(".tab").forEach((x) => x.classList.toggle("active", x === t));
     $("tab-board").hidden = t.dataset.tab !== "board";

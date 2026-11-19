@@ -30,6 +30,12 @@
         <button type="button" id="export-pdf" title="Opens the print dialog: choose Save as PDF">PDF</button>
       </span>
     </div>
+    <p id="folder-hint" class="folder-hint edit-only no-print" hidden>
+      Folder to choose:
+      <input id="folder-path" readonly aria-label="Board folder path">
+      <button type="button" id="copy-path">Copy</button>
+      <small>Paste it into the folder box of the window that opens.</small>
+    </p>
     <p id="status" class="status edit-only no-print" aria-live="polite"></p>
 
     <div id="board-area">
